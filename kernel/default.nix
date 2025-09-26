@@ -1,4 +1,4 @@
-{ pkgs }:
+{ self, pkgs }:
 let
   name = ''\033[33mkernel-dev\033[39m'';
   kernelVersion = "6.12.49";
@@ -7,10 +7,11 @@ let
       pkgs.wget
     ]}:$PATH
     KERNEL_VERSION=${kernelVersion}
-    ${builtins.readFile ./setup-kernel.sh}
+    echo "setup script"
   '';
 in pkgs.mkShell {
   buildInputs = with pkgs; [
+    self.packages.${pkgs.system}.fuckshit
     setupKernel
   ];
   shellHook = ''
