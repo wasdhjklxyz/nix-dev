@@ -21,6 +21,8 @@
               url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.49.tar.xz";
               hash = "sha256-I0Yh4UbazOIkEElVXVUOT3pr3mfM1+8jLUesgUVCVSY=";
             };
+            configurePhase = builtins.readFile ./scripts/linux-configure.sh;
+            buildPhase = builtins.readFile ./scripts/linux-build.sh;
           };
         });
 
