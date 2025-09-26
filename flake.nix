@@ -16,6 +16,7 @@
         in {
           go = import ./go.nix { inherit pkgs; };
           cancer = import ./cancer.nix { inherit pkgs; };
+          kernel = import ./kernel { inherit pkgs; };
         });
     };
 }
