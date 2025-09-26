@@ -10,32 +10,19 @@
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
     in {
-      packages =
+      packages = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          kernelVersion = "6.12.49";
-        in pkgs.stdenv.mkDerivation {
-          fuckshit = {
-            pname = "fuckshit";
-            version = "0.0.0";
-
-            src = pkgs.fetchgit {
-              url = "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git";
-              rev = "linux-rolling-stable";
-              hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+        in {
+          linux = pkgs.stdenv.mkDerivation {
+            pname = "linux";
+            version = "6.12.49";
+            src = pkgs.fetchurl {
+              url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.49.tar.xz";
+              hash = "sha256-I0Yh4UbazOIkEElVXVUOT3pr3mfM1+8jLUesgUVCVSY=";
             };
-
-            buildInputs = with pkgs; [ pkgs.cowsay ];
-
-            buildPhase = ''
-              echo "build phase: hi"
-            '';
-
-            installPhase = ''
-              echo "install phase: hi"
-            '';
           };
-        };
+        });
 
       devShells = eachSystem (system:
         let
@@ -43,7 +30,10 @@
         in {
           go = import ./go.nix { inherit pkgs; };
           cancer = import ./cancer.nix { inherit pkgs; };
-          kernel = import ./kernel { inherit self pkgs; };
+          kernel = import ./kernel {
+            inherit pkgs;
+            inherit self system;
+          };
         });
     };
 }

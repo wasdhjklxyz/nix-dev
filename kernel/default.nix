@@ -1,19 +1,8 @@
-{ self, pkgs }:
+{ pkgs, self, system }:
 let
   name = ''\033[33mkernel-dev\033[39m'';
-  kernelVersion = "6.12.49";
-  setupKernel = pkgs.writeShellScriptBin "setup-kernel" ''
-    export PATH=${pkgs.lib.makeBinPath [
-      pkgs.wget
-    ]}:$PATH
-    KERNEL_VERSION=${kernelVersion}
-    echo "setup script"
-  '';
 in pkgs.mkShell {
-  buildInputs = with pkgs; [
-    self.packages.${pkgs.system}.fuckshit
-    setupKernel
-  ];
+  buildInputs = with pkgs; [ self.packages.${system}.linux ];
   shellHook = ''
     if [[ -n "$NIX_DEVELOP_STACK" ]]; then
       export NIX_DEVELOP_STACK="$NIX_DEVELOP_STACK|${name}"
