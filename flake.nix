@@ -33,6 +33,7 @@
             '';
             configurePhase = builtins.readFile ./scripts/linux-configure.sh;
             buildPhase = builtins.readFile ./scripts/linux-build.sh;
+            installPhase = builtins.readFile ./scripts/linux-install.sh;
           };
         });
 
