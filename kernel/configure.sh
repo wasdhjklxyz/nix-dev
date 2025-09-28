@@ -1,5 +1,5 @@
-make allnoconfig
-./scripts/config --file .config \
+make O=build allnoconfig
+./scripts/config --file build/.config \
   --enable CONFIG_64BIT \
   --enable CONFIG_INITRAMFS_SOURCE \
   --enable CONFIG_BLK_DEV_INITRD \
