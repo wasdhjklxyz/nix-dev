@@ -13,6 +13,7 @@
       packages = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          kernelStuff = import ./kernel { inherit pkgs self system; };
         in {
           linux = pkgs.stdenv.mkDerivation {
             pname = "linux";
@@ -36,10 +37,7 @@
           cmake = import ./cmake.nix { inherit pkgs; };
           curl = import ./curl.nix { inherit pkgs; };
           goose = import ./goose.nix { inherit pkgs; };
-          kernel = import ./kernel {
-            inherit pkgs;
-            inherit self system;
-          };
+          kernel = kernelStuff.devShell;
         });
     };
 }
