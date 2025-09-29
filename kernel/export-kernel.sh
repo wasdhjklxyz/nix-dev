@@ -1,4 +1,3 @@
-CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/nix-kernel-dev"
 export KDIR="$CACHE_DIR/$(basename "$LINUX_SRC")"
 
 if [[ ! -d "$KDIR" ]]; then

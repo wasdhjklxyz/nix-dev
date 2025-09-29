@@ -50,6 +50,8 @@ in {
       fi
       export PS1="\n\033[1m[$NIX_DEVELOP_STACK]\033[0m $PS1"
 
+      CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/nix-kernel-dev"
+
       LINUX_SRC=${linux}
       ${builtins.readFile ./export-kernel.sh}
 
