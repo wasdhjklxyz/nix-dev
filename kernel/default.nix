@@ -59,6 +59,18 @@ in {
 
       ${builtins.readFile ./add-module.sh}
       ${builtins.readFile ./start-qemu.sh}
+
+      BUSYBOX_SRC=${busybox}
+      echo "[Versions]"
+      echo "  Kernel: ''${LINUX_SRC#*-}"
+      echo "  Busybox: ''${BUSYBOX_SRC#*-}"
+      echo "[Exported]"
+      echo "  KDIR=$KDIR"
+      echo "  INITRAMFS_BASE=$INITRAMFS_BASE"
+      echo "  INITRAMFS_FINAL=$INITRAMFS_FINAL"
+      echo "[Scripts]"
+      echo "  add-module: Add module to initramfs"
+      echo "  start-qemu: Start QEMU using built kernel and initramfs"
     '';
   };
 }
