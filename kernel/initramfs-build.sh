@@ -1,4 +1,4 @@
-mkdir -p initramfs/bin
+mkdir -p initramfs/{bin,proc,sys,dev,mnt,root}
 cp $BUSYBOX_BIN initramfs/bin
 for cmd in $($BUSYBOX_BIN --list); do
   ln -sf busybox initramfs/bin/$cmd
