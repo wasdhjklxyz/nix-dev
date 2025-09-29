@@ -8,7 +8,7 @@ start-qemu() {
     -nographic \
     -append "console=ttyS0 panic=1" \
 		-no-reboot \
-    -fsdev local,id=host0,path=$(pwd),security_model=none,readonly=off \
+    -fsdev local,id=host0,path=$(pwd),security_model=none \
     -device virtio-9p,fsdev=host0,mount_tag=hostshare \
 		-enable-kvm 2>/dev/null || \
   qemu-system-x86_64 \
@@ -17,6 +17,6 @@ start-qemu() {
 		-nographic \
 		-no-reboot \
 		-append "console=ttyS0 panic=1" \
-    -fsdev local,id=host0,path=$(pwd),security_model=none,readonly=off \
+    -fsdev local,id=host0,path=$(pwd),security_model=none \
     -device virtio-9p,fsdev=host0,mount_tag=hostshare
 }
