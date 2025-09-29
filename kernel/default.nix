@@ -36,6 +36,7 @@ in {
       export PS1="\n\033[1m[$NIX_DEVELOP_STACK]\033[0m $PS1"
       export KERNEL_SRC=${linux}/src
       export KERNEL_BUILD=${linux}/build
+      BUSYBOX_DIR=${busybox}
       ${builtins.readFile ./mkinitramfs.sh}
     '';
   };
