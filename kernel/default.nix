@@ -51,6 +51,7 @@ in {
       export INITRAMFS_FINAL=$PWD/initramfs.cpio
       cp $INITRAMFS_BASE $INITRAMFS_FINAL
       ${builtins.readFile ./add-module.sh}
+      ${builtins.readFile ./start-qemu.sh}
     '';
   };
 }
