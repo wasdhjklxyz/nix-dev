@@ -15,5 +15,8 @@ make allnoconfig
   --enable CONFIG_SYS \
   --enable CONFIG_MODULES \
   --enable CONFIG_MODULE_UNLOAD \
-  --enable CONFIG_NET
+  --enable CONFIG_NET \
+  --enable CONFIG_9P_FS \
+  --enable CONFIG_NET_9P \
+  --enable CONFIG_NET_9P_VIRTIO
 make olddefconfig
