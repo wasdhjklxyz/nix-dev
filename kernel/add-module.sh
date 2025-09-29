@@ -10,7 +10,7 @@ add-module() {
   cp "$1" $modules_dir
 
   (cd $tmp_dir && find . | cpio -ov --format=newc) > $tmp_dir/module.cpio
-  cat $INITRAMFS $tmp_dir/module.cpio > $INITRAMFS_CPIO
+  cat $INITRAMFS $tmp_dir/module.cpio > $INITRAMFS
 
   rm -rf $tmp_dir
 }

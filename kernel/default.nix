@@ -55,7 +55,7 @@ in {
       LINUX_SRC=${linux}
       ${builtins.readFile ./export-kernel.sh}
 
-      export INITRAMFS=${initramfs}
+      INITRAMFS_SRC=${initramfs}
       ${builtins.readFile ./export-initramfs.sh}
 
       ${builtins.readFile ./add-module.sh}
@@ -69,7 +69,6 @@ in {
       echo "  KDIR=$KDIR"
       echo "  KERNEL_VERSION=$KERNEL_VERSION"
       echo "  INITRAMFS=$INITRAMFS"
-      echo "  INITRAMFS_CPIO=$INITRAMFS_CPIO"
       echo "[Scripts]"
       echo "  add-module: Add module to initramfs"
       echo "  start-qemu: Start QEMU using built kernel and initramfs"
