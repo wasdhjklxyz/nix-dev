@@ -5,12 +5,17 @@ add-module() {
   fi
 
   local tmp_dir=$(mktemp -d)
-  local modules_dir=$tmp_dir/lib/modules/$KERNEL_VERSION
-  mkdir -p $modules_dir
-  cp "$1" $modules_dir
+  local modname=$(basename "$1")
 
-  (cd $tmp_dir && find . | cpio -ov --format=newc) > $tmp_dir/module.cpio
-  cat $INITRAMFS $tmp_dir/module.cpio > $INITRAMFS
+  mkdir -p "$tmp_dir"
+  (cd "$tmp_dir" && cat "$INITRAMFS" | cpio -idm --quiet)
 
-  rm -rf $tmp_dir
+  install -D -m 0644 "$1" "$tmp_dir/lib/modules/$KERNEL_VERSION/extra/$modname"
+
+  depmod -a -b "$tmp_dir" "$KERNEL_VERSION"
+
+  (cd "$tmp_dir" && find . | cpio -ov --format=newc) > "${INITRAMFS}.new"
+  mv "${INITRAMFS}.new" "$INITRAMFS"
+
+  rm -rf "$tmp_dir"
 }
