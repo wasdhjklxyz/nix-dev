@@ -47,7 +47,10 @@ in {
       export PS1="\n\033[1m[$NIX_DEVELOP_STACK]\033[0m $PS1"
       export KERNEL_SRC=${linux}/src
       export KERNEL_BUILD=${linux}/build
-      export INITRAMFS_CPIO=${initramfs}/initramfs.cpio
+      export INITRAMFS_BASE=${initramfs}/initramfs.cpio
+      export INITRAMFS_FINAL=$PWD/initramfs.cpio
+      cp $INITRAMFS_BASE $INITRAMFS_FINAL
+      ${builtins.readFile ./add-module.sh}
     '';
   };
 }
