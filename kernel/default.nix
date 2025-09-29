@@ -19,6 +19,10 @@ let
     configurePhase = builtins.readFile ./configure.sh;
     buildPhase = builtins.readFile ./build.sh;
     installPhase = builtins.readFile ./install.sh;
+    dontFixup = true;
+    dontStrip = true;
+    dontPatchELF = true;
+    dontPatchShebangs = true;
   };
   busybox = pkgs.busybox.override {
     enableStatic = true;
