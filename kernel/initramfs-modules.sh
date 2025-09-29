@@ -19,3 +19,8 @@ add-module() {
 
   rm -rf "$tmp_dir"
 }
+
+reset-modules() {
+  cp "$INITRAMFS.bak" "$INITRAMFS"
+  chmod +w "$INITRAMFS"
+}

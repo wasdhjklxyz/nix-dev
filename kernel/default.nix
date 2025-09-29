@@ -58,7 +58,7 @@ in {
       INITRAMFS_SRC=${initramfs}
       ${builtins.readFile ./export-initramfs.sh}
 
-      ${builtins.readFile ./add-module.sh}
+      ${builtins.readFile ./initramfs-modules.sh}
       ${builtins.readFile ./start-qemu.sh}
 
       BUSYBOX_SRC=${busybox}
@@ -71,6 +71,7 @@ in {
       echo "  INITRAMFS=$INITRAMFS"
       echo "[Scripts]"
       echo "  add-module: Add module to initramfs"
+      echo "  reset-modules: Remove all modules from initramfs"
       echo "  start-qemu: Start QEMU using built kernel and initramfs"
     '';
   };
