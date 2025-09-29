@@ -15,7 +15,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           kernelStuff = import ./kernel { inherit pkgs self system; };
         in {
-          inherit (kernelStuff.packages) linux busybox;
+          inherit (kernelStuff.packages) linux busybox initramfs;
         });
       devShells = eachSystem (system:
         let

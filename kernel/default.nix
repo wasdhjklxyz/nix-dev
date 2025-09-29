@@ -23,8 +23,19 @@ let
   busybox = pkgs.busybox.override {
     enableStatic = true;
   };
+  initramfs = pkgs.stdenv.mkDerivation {
+    pname = "initramfs";
+    version = "0.0";  # TODO: Automatic versioning?
+    dontUnpack = true;
+    buildInputs = [ busybox ];
+    buildPhase = ''
+      BUSYBOX_BIN=${busybox}/bin/busybox
+      ${builtins.readFile ./initramfs-build.sh}
+    '';
+    installPhase = builtins.readFile ./initramfs-install.sh;
+  };
 in {
-  packages = { inherit linux busybox; };
+  packages = { inherit linux busybox initramfs; };
   devShell = pkgs.mkShell {
     buildInputs = with pkgs; [ linux busybox ];
     shellHook = ''
@@ -36,8 +47,7 @@ in {
       export PS1="\n\033[1m[$NIX_DEVELOP_STACK]\033[0m $PS1"
       export KERNEL_SRC=${linux}/src
       export KERNEL_BUILD=${linux}/build
-      BUSYBOX_DIR=${busybox}
-      ${builtins.readFile ./mkinitramfs.sh}
+      export INITRAMFS_CPIO=${initramfs}/initramfs.cpio
     '';
   };
 }
