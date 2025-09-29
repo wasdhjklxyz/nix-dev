@@ -1,1 +1,1 @@
-make -C build -j$(nproc)
+make -j$(nproc)

@@ -1,5 +1,5 @@
-make O=build allnoconfig
-./scripts/config --file build/.config \
+make allnoconfig
+./scripts/config --file .config \
   --enable CONFIG_64BIT \
   --enable CONFIG_INITRAMFS_SOURCE \
   --enable CONFIG_BLK_DEV_INITRD \
@@ -16,4 +16,4 @@ make O=build allnoconfig
   --enable CONFIG_MODULES \
   --enable CONFIG_MODULE_UNLOAD \
   --enable CONFIG_NET
-make -C build olddefconfig
+make olddefconfig

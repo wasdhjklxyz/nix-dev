@@ -45,8 +45,7 @@ in {
         export NIX_DEVELOP_STACK="${name}"
       fi
       export PS1="\n\033[1m[$NIX_DEVELOP_STACK]\033[0m $PS1"
-      export KERNEL_SRC=${linux}/src
-      export KERNEL_BUILD=${linux}/build
+      export KERNEL_SRC=${linux}
       export INITRAMFS_BASE=${initramfs}/initramfs.cpio
       export INITRAMFS_FINAL=$PWD/initramfs.cpio
       cp $INITRAMFS_BASE $INITRAMFS_FINAL
