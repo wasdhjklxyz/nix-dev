@@ -18,5 +18,9 @@ make allnoconfig
   --enable CONFIG_NET \
   --enable CONFIG_9P_FS \
   --enable CONFIG_NET_9P \
-  --enable CONFIG_NET_9P_VIRTIO
+  --enable CONFIG_NET_9P_VIRTIO \
+  --enable CONFIG_9P_FS_POSIX_ACL \
+  --enable CONFIG_PCI \
+  --enable CONFIG_VIRTIO_PCI \
+  --enable CONFIG_PCI_HOST_GENERIC
 make olddefconfig
