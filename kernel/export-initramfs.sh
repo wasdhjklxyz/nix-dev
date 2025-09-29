@@ -1,1 +1,1 @@
-export INITRAMFS_CPIO=$INITRAMFS_SRC/initramfs.cpio
+export INITRAMFS_CPIO=$INITRAMFS/initramfs.cpio
