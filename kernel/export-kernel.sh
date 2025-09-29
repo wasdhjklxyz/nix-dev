@@ -6,7 +6,7 @@ if [[ -d "$KDIR" ]]; then
 fi
 mkdir -p "$KDIR"
 
-cp -r "$LINUX_SRC/*" "$KDIR"
+cp -r "$LINUX_SRC" "$CACHE_DIR"
 chmod -R +w "$KDIR"
 find "$KDIR/scripts" -type f -exec chmod +x {} \; 2>/dev/null || true
 find "$KDIR/tools" -type f -exec chmod +x {} \; 2>/dev/null || true
