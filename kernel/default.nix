@@ -66,6 +66,7 @@ in {
       echo "  Busybox: ''${BUSYBOX_SRC#*-}"
       echo "[Exported]"
       echo "  KDIR=$KDIR"
+      echo "  KERNEL_VERSION=$KERNEL_VERSION"
       echo "  INITRAMFS_BASE=$INITRAMFS_BASE"
       echo "  INITRAMFS_FINAL=$INITRAMFS_FINAL"
       echo "[Scripts]"

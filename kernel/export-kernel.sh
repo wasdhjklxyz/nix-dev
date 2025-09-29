@@ -8,3 +8,5 @@ if [[ ! -d "$KDIR" ]]; then
   find "$KDIR/scripts" -type f -exec chmod +x {} \; 2>/dev/null || true
   find "$KDIR/tools" -type f -exec chmod +x {} \; 2>/dev/null || true
 fi
+
+export KERNEL_VERSION=${LINUX_SRC#*-linux-}
