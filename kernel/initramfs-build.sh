@@ -13,8 +13,7 @@ mount -t sysfs none /sys
 
 if grep -q 9p /proc/filesystems 2>/dev/null; then
   mkdir -p /mnt/host
-  mount -t 9p -o trans=virtio hostshare /mnt/host 2>/dev/null && \
-    echo "Host directory mounted at /mnt/host"
+  mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt/host
 fi
 
 exec /bin/sh
