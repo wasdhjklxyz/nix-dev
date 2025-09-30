@@ -1,6 +1,6 @@
 { pkgs }:
 let
-  name = ''\033[32msqlite-dev\033[39m'';
+  name = ''\033[34msqlite-dev\033[39m'';
 in pkgs.mkShell {
   buildInputs = with pkgs; [ sqlite ];
   shellHook = ''
