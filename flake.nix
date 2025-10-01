@@ -10,13 +10,6 @@
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
     in {
-      packages = eachSystem (system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-          kernelStuff = import ./kernel { inherit pkgs self system; };
-        in {
-          inherit (kernelStuff.packages) linux busybox initramfs;
-        });
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
