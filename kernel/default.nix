@@ -14,6 +14,7 @@ let
       bash  # Needed by patchShebangs
       bc
       elfutils
+      bear
     ];
     postPatch = "patchShebangs scripts/config";
     configurePhase = builtins.readFile ./configure.sh;
