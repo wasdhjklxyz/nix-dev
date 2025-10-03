@@ -47,6 +47,7 @@ in {
       ${builtins.readFile ../nix-develop-stack.sh}
 
       LINUX_SRC=${linux}
+      CACHE_DIR="''${XDG_CACHE_HOME:-$HOME/.cache}/nix-kernel-dev"
       ${builtins.readFile ./export-kernel.sh}
 
       INITRAMFS_SRC=${initramfs}
