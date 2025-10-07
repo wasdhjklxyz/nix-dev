@@ -17,6 +17,7 @@
           go = import ./go.nix { inherit pkgs; };
           cancer = import ./cancer.nix { inherit pkgs; };
           sqlite = import ./sqlite.nix { inherit pkgs; };
+          goose = import ./goose.nix { inherit pkgs; };
         });
     };
 }
