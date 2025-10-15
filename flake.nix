@@ -22,6 +22,7 @@
           cmake = import ./cmake.nix { inherit pkgs; };
           curl = import ./curl.nix { inherit pkgs; };
           goose = import ./goose.nix { inherit pkgs; };
+          debian = debianStuff.devShell;
         });
     };
 }
