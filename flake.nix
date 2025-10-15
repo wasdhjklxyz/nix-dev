@@ -13,10 +13,12 @@
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
+          debianStuff = import ./debian { inherit pkgs self system; };
         in {
           go = import ./go.nix { inherit pkgs; };
           cancer = import ./cancer.nix { inherit pkgs; };
           sqlite = import ./sqlite.nix { inherit pkgs; };
+          debian = debianStuff.devShell;
         });
     };
 }
