@@ -18,6 +18,7 @@
           cancer = import ./cancer.nix { inherit pkgs; };
           sqlite = import ./sqlite.nix { inherit pkgs; };
           cmake = import ./cmake.nix { inherit pkgs; };
+          curl = import ./curl.nix { inherit pkgs; };
         });
     };
 }
