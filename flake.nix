@@ -20,6 +20,7 @@
           sqlite = import ./sqlite.nix { inherit pkgs; };
           debian = debianStuff.devShell;
           cmake = import ./cmake.nix { inherit pkgs; };
+          curl = import ./curl.nix { inherit pkgs; };
         });
     };
 }
