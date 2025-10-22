@@ -20,6 +20,7 @@
           kernel = kernelStuff.devShell;
           sqlite = import ./sqlite.nix { inherit pkgs; };
           cmake = import ./cmake.nix { inherit pkgs; };
+          curl = import ./curl.nix { inherit pkgs; };
         });
     };
 }
