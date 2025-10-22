@@ -3,7 +3,7 @@
   shellHook = ''
     NAME="curl"
     ${builtins.readFile ./nix-develop-stack.sh}
-    curl --version | head -1
+    curl --version | head -1 | sed -e 's/\(.*\) (.*/\1/'
     curl-config --version
   '';
 }
