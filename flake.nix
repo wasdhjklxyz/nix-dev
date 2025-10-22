@@ -19,6 +19,7 @@
           cancer = import ./cancer.nix { inherit pkgs; };
           kernel = kernelStuff.devShell;
           sqlite = import ./sqlite.nix { inherit pkgs; };
+          cmake = import ./cmake.nix { inherit pkgs; };
         });
     };
 }
