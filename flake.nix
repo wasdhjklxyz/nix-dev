@@ -22,6 +22,7 @@
           curl = import ./curl.nix { inherit pkgs; };
           goose = import ./goose.nix { inherit pkgs; };
           kernel = kernelStuff.devShell;
+          python = import ./python.nix { inherit pkgs; };
         });
     };
 }
