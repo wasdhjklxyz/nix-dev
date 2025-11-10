@@ -20,6 +20,7 @@
           cmake = import ./cmake.nix { inherit pkgs; };
           curl = import ./curl.nix { inherit pkgs; };
           goose = import ./goose.nix { inherit pkgs; };
+          python = import ./python.nix { inherit pkgs; };
         });
     };
 }
