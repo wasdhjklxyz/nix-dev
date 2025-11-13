@@ -9,6 +9,8 @@ start-qemu() {
     -append "console=ttyS0 panic=1" \
 		-no-reboot \
     -virtfs local,path=$(pwd),mount_tag=hostshare,security_model=none \
+    -serial mon:stdio \
+    -serial unix:/tmp/qemu-serial.sock,server,nowait \
 		-enable-kvm 2>/dev/null || \
   qemu-system-x86_64 \
     -kernel $KDIR/arch/x86_64/boot/bzImage \
@@ -16,5 +18,7 @@ start-qemu() {
 		-nographic \
 		-no-reboot \
 		-append "console=ttyS0 panic=1" \
+    -serial mon:stdio \
+    -serial unix:/tmp/qemu-serial.sock,server,nowait \
     -virtfs local,path=$(pwd),mount_tag=hostshare,security_model=none
 }

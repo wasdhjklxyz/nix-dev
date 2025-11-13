@@ -16,6 +16,7 @@ if grep -q 9p /proc/filesystems 2>/dev/null; then
   mount -t 9p -o trans=virtio,version=9p2000.L hostshare /mnt/host
 fi
 
+setsid /bin/sh </dev/ttyS1 >/dev/ttyS1 2>&1 &
 exec /bin/sh
 EOF
 chmod +x initramfs/init
