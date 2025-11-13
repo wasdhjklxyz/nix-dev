@@ -24,5 +24,6 @@ make allnoconfig
   --enable CONFIG_NET_9P \
   --enable CONFIG_NET_9P_VIRTIO \
   --enable CONFIG_9P_FS \
-  --enable CONFIG_9P_FS_POSIX_ACL
+  --enable CONFIG_9P_FS_POSIX_ACL \
+  --disable CONFIG_IPV6
 make olddefconfig
