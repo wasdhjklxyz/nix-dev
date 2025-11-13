@@ -14,6 +14,7 @@ let
       bash  # Needed by patchShebangs
       bc
       elfutils
+      socat
     ];
     postPatch = "patchShebangs scripts/config";
     configurePhase = builtins.readFile ./configure.sh;
@@ -65,6 +66,7 @@ in {
       echo "  INITRAMFS=$INITRAMFS"
       echo "[Scripts]"
       echo "  start-qemu: Start QEMU using built kernel and initramfs"
+      echo "  qemu-tty: Open QEMU ttyS1"
     '';
   };
 }

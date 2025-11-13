@@ -22,3 +22,9 @@ start-qemu() {
     -serial unix:/tmp/qemu-serial.sock,server,nowait \
     -virtfs local,path=$(pwd),mount_tag=hostshare,security_model=none
 }
+
+qemu-tty() {
+  local sock="/tmp/qemu-serial.sock"
+  [[ ! -S "$sock" ]] && { echo "No QEMU socket at $sock" >&2; return 1; }
+  socat unix-connect:"$sock" -,raw,echo=0
+}
