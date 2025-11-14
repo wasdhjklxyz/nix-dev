@@ -14,7 +14,6 @@ let
       bash  # Needed by patchShebangs
       bc
       elfutils
-      socat
     ];
     postPatch = "patchShebangs scripts/config";
     configurePhase = builtins.readFile ./configure.sh;
@@ -42,7 +41,7 @@ let
 in {
   packages = { inherit linux busybox initramfs; };
   devShell = pkgs.mkShell {
-    buildInputs = with pkgs; [ linux busybox bear ];
+    buildInputs = with pkgs; [ linux busybox bear socat ];
     shellHook = ''
       NAME="kernel"
       ${builtins.readFile ../nix-develop-stack.sh}
