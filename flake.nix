@@ -23,6 +23,7 @@
           goose = import ./goose.nix { inherit pkgs; };
           python = import ./python.nix { inherit pkgs; };
           kernel = kernelStuff.devShell;
+          valgrind = import ./valgrind.nix { inherit pkgs; };
         });
     };
 }
