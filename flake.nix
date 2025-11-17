@@ -25,6 +25,7 @@
           kernel = kernelStuff.devShell;
           valgrind = import ./valgrind.nix { inherit pkgs; };
           nasm = import ./nasm.nix { inherit pkgs; };
+          gdb = import ./gdb.nix { inherit pkgs; };
         });
     };
 }
