@@ -21,6 +21,7 @@
           curl = import ./curl.nix { inherit pkgs; };
           goose = import ./goose.nix { inherit pkgs; };
           python = import ./python.nix { inherit pkgs; };
+          valgrind = import ./valgrind.nix { inherit pkgs; };
         });
     };
 }
