@@ -44,5 +44,7 @@ make allnoconfig
   --enable CONFIG_DEBUG_NET \
   --enable CONFIG_DEBUG_KMEMLEAK \
   --enable CONFIG_TRACING \
-  --enable CONFIG_FTRACE
+  --enable CONFIG_FTRACE \
+  --enable CONFIG_IP_ADVANCED_ROUTER \
+  --enable CONFIG_IP_MULTIPLE_TABLES
 make olddefconfig
