@@ -46,5 +46,6 @@ make allnoconfig
   --enable CONFIG_TRACING \
   --enable CONFIG_FTRACE \
   --enable CONFIG_IP_ADVANCED_ROUTER \
-  --enable CONFIG_IP_MULTIPLE_TABLES
+  --enable CONFIG_IP_MULTIPLE_TABLES \
+  --enable CONFIG_NET_FOU
 make olddefconfig
