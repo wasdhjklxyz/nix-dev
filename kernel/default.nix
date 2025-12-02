@@ -41,7 +41,7 @@ let
 in {
   packages = { inherit linux busybox initramfs; };
   devShell = pkgs.mkShell {
-    buildInputs = with pkgs; [ linux busybox bear socat ];
+    buildInputs = with pkgs; [ linux bear socat ];
     shellHook = ''
       NAME="kernel"
       ${builtins.readFile ../nix-develop-stack.sh}
