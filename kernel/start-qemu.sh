@@ -15,17 +15,9 @@ start-qemu() {
       tap_dev="tap_client"
       sock_path="/tmp/qemu-client.sock"
       ;;
-    server)
-      vm_ip="192.0.2.3"
-      mac_suffix="03"
-      ps1_color="33" # yellow
-      ps1_name="server"
-      tap_dev="tap_server"
-      sock_path="/tmp/qemu-server.sock"
-      ;;
     peer)
-      vm_ip="192.0.2.4"
-      mac_suffix="04"
+      vm_ip="203.0.113.2"
+      mac_suffix="13"
       ps1_color="31" # red
       ps1_name="peer"
       tap_dev="tap_peer"
@@ -47,7 +39,8 @@ start-qemu() {
     echo "Creating bridge br0..."
     sudo ip link add br0 type bridge
     sudo ip link set br0 up
-    sudo ip addr add 192.0.2.1/24 dev br0
+    sudo ip addr add 192.0.2.0/24 dev br0
+    sudo ip addr add 203.0.113.0/24 dev br0
   fi
 
   if ! bridge link show | grep -q $tap_dev; then
