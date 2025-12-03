@@ -41,7 +41,7 @@ let
 in {
   packages = { inherit linux busybox initramfs; };
   devShell = pkgs.mkShell {
-    buildInputs = with pkgs; [ linux bear socat ];
+    buildInputs = with pkgs; [ linux bear socat gdb ];
     shellHook = ''
       NAME="kernel"
       ${builtins.readFile ../nix-develop-stack.sh}
@@ -63,10 +63,13 @@ in {
       echo "  KDIR=$KDIR"
       echo "  KERNEL_VERSION=$KERNEL_VERSION"
       echo "  INITRAMFS=$INITRAMFS"
+      echo "  VMLINUX=$VMLINUX"
       echo "[Scripts]"
       echo "  start-qemu: Start QEMU using built kernel and initramfs"
       echo "  qemu-tty: Open QEMU ttyS1"
       echo "  cleanup-qemu: Clean up QEMU network interfaces and sockets"
+      echo "  debug-qemu: Same as start-qemu but no ASLR and -s -S for QEMU"
+      echo "  qemu-gdb: Start GDB for VM started using debug-qemu"
     '';
   };
 }

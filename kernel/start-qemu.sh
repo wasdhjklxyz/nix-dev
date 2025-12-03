@@ -58,25 +58,25 @@ start-qemu() {
     -kernel $KDIR/arch/x86_64/boot/bzImage \
     -initrd $INITRAMFS \
     -nographic \
-    -append "console=ttyS0 panic=1 role=$role vm_ip=$vm_ip ps1_color=$ps1_color ps1_name=$ps1_name" \
+    -append "console=ttyS0 panic=1 role=$role vm_ip=$vm_ip ps1_color=$ps1_color ps1_name=$ps1_name $2" \
 		-no-reboot \
     -virtfs local,path=$(pwd),mount_tag=hostshare,security_model=none \
     -serial mon:stdio \
     -serial unix:$sock_path,server,nowait \
     -netdev tap,id=net0,ifname=$tap_dev,script=no,downscript=no \
     -device virtio-net-pci,netdev=net0,mac=52:54:00:00:00:${mac_suffix} \
-		-enable-kvm 2>/dev/null || \
+		-enable-kvm $3 $4 2>/dev/null || \
   qemu-system-x86_64 \
     -kernel $KDIR/arch/x86_64/boot/bzImage \
     -initrd $INITRAMFS \
 		-nographic \
 		-no-reboot \
-    -append "console=ttyS0 panic=1 role=$role vm_ip=$vm_ip ps1_color=$ps1_color ps1_name=$ps1_name" \
+    -append "console=ttyS0 panic=1 role=$role vm_ip=$vm_ip ps1_color=$ps1_color ps1_name=$ps1_name $2" \
     -serial mon:stdio \
     -serial unix:$sock_path,server,nowait \
     -virtfs local,path=$(pwd),mount_tag=hostshare,security_model=none \
     -netdev tap,id=net0,ifname=$tap_dev,script=no,downscript=no \
-    -device virtio-net-pci,netdev=net0,mac=52:54:00:00:00:${mac_suffix}
+    -device virtio-net-pci,netdev=net0,mac=52:54:00:00:00:${mac_suffix} $3 $4
 }
 
 qemu-tty() {
@@ -106,4 +106,15 @@ cleanup-qemu() {
         /tmp/qemu-server.sock \
         /tmp/qemu-peer.sock \
         /tmp/qemu-serial.sock
+}
+
+debug-qemu() {
+  start-qemu $1 "nokaslr" "-s" "-S"
+}
+
+qemu-gdb() {
+  gdb $VMLINUX \
+    -ex "target remote :1234" \
+    -ex "lx-symbols" \
+    -ex "b start_kernel"
 }
