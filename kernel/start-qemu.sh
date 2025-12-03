@@ -8,7 +8,7 @@ start-qemu() {
 
   case $role in
     client)
-      vm_ip="10.0.3.2"
+      vm_ip="192.0.2.2"
       mac_suffix="02"
       ps1_color="34" # blue
       ps1_name="client"
@@ -16,7 +16,7 @@ start-qemu() {
       sock_path="/tmp/qemu-client.sock"
       ;;
     server)
-      vm_ip="10.0.3.3"
+      vm_ip="192.0.2.3"
       mac_suffix="03"
       ps1_color="32" # green
       ps1_name="server"
@@ -24,7 +24,7 @@ start-qemu() {
       sock_path="/tmp/qemu-server.sock"
       ;;
     peer)
-      vm_ip="10.0.3.4"
+      vm_ip="192.0.2.4"
       mac_suffix="04"
       ps1_color="31" # red
       ps1_name="peer"
@@ -47,7 +47,7 @@ start-qemu() {
     echo "Creating bridge br0..."
     sudo ip link add br0 type bridge
     sudo ip link set br0 up
-    sudo ip addr add 10.0.3.1/24 dev br0
+    sudo ip addr add 192.0.2.1/24 dev br0
   fi
 
   if ! bridge link show | grep -q $tap_dev; then
