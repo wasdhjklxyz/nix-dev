@@ -32,7 +32,7 @@ ip link set eth0 up
 ip addr add ${VM_IP:-192.0.2.2}/24 dev eth0
 ip route add default via 192.0.2.1
 
-export PS1="\[\e[1;${PS1_COLOR:-39}m\][${PS1_NAME:-root}@${VM_IP:-192.0.2.2}:\w]\[\e[0m\] # "
+export PS1="\[\e[1;${PS1_COLOR:-39}m\][${PS1_NAME:-root}@${VM_IP:-192.0.2.2}:\w]#\[\e[0m\] "
 
 setsid /bin/sh </dev/ttyS1 >/dev/ttyS1 2>&1 &
 exec /bin/sh
