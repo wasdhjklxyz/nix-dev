@@ -18,7 +18,7 @@ start-qemu() {
     server)
       vm_ip="192.0.2.3"
       mac_suffix="03"
-      ps1_color="32" # green
+      ps1_color="33" # yellow
       ps1_name="server"
       tap_dev="tap_server"
       sock_path="/tmp/qemu-server.sock"
