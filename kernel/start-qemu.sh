@@ -109,7 +109,7 @@ cleanup-qemu() {
 }
 
 debug-qemu() {
-  start-qemu $1 "nokaslr" "-s" "-S"
+  start-qemu $1 "nokaslr" "-s"
 }
 
 qemu-gdb() {
