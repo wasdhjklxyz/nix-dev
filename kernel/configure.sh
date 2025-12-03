@@ -35,7 +35,6 @@ make allnoconfig
   --enable CONFIG_NETDEVICES \
   --enable CONFIG_NET_CORE \
   --enable CONFIG_TUN \
-  --enable CONFIG_DUMMY \
   --enable CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT \
   --enable CONFIG_FRAME_POINTER \
   --enable CONFIG_DYNAMIC_DEBUG \
