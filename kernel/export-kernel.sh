@@ -9,3 +9,4 @@ if [[ ! -d "$KDIR" ]]; then
 fi
 
 export KERNEL_VERSION=${LINUX_SRC#*-linux-}
+export VMLINUX="$KDIR/vmlinux"

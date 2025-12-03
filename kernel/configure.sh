@@ -48,5 +48,7 @@ make allnoconfig
   --enable CONFIG_IP_ADVANCED_ROUTER \
   --enable CONFIG_IP_MULTIPLE_TABLES \
   --enable CONFIG_NET_FOU \
-  --enable CONFIG_VETH
+  --enable CONFIG_VETH \
+  --enable CONFIG_DEBUG_INFO \
+  --enable CONFIG_GDB_SCRIPTS
 make olddefconfig
