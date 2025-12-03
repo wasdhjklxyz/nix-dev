@@ -48,6 +48,13 @@ make allnoconfig
   --enable CONFIG_IP_ADVANCED_ROUTER \
   --enable CONFIG_IP_MULTIPLE_TABLES \
   --enable CONFIG_NET_FOU \
+  --enable CONFIG_DEBUG_KERNEL \
   --enable CONFIG_DEBUG_INFO \
-  --enable CONFIG_GDB_SCRIPTS
+  --enable CONFIG_DEBUG_INFO_DWARF_TOOLCHAIN_DEFAULT \
+  --disable CONFIG_DEBUG_INFO_REDUCED \
+  --disable CONFIG_DEBUG_INFO_COMPRESSED \
+  --disable CONFIG_DEBUG_INFO_SPLIT \
+  --enable CONFIG_GDB_SCRIPTS \
+  --disable CONFIG_STRICT_KERNEL_RWX \
+  --disable CONFIG_STRICT_MODULE_RWX
 make olddefconfig
