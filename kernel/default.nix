@@ -66,6 +66,7 @@ in {
       echo "[Scripts]"
       echo "  start-qemu: Start QEMU using built kernel and initramfs"
       echo "  qemu-tty: Open QEMU ttyS1"
+      echo "  cleanup-qemu: Clean up QEMU network interfaces and sockets"
     '';
   };
 }
