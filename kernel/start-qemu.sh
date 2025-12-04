@@ -39,8 +39,8 @@ start-qemu() {
     echo "Creating bridge br0..."
     sudo ip link add br0 type bridge
     sudo ip link set br0 up
-    sudo ip addr add 192.0.2.0/24 dev br0
-    sudo ip addr add 203.0.113.0/24 dev br0
+    sudo ip addr add 192.0.2.1/24 dev br0
+    sudo ip addr add 203.0.113.1/24 dev br0
   fi
 
   if ! bridge link show | grep -q $tap_dev; then
