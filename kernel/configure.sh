@@ -56,5 +56,9 @@ make allnoconfig
   --disable CONFIG_DEBUG_INFO_SPLIT \
   --enable CONFIG_GDB_SCRIPTS \
   --disable CONFIG_STRICT_KERNEL_RWX \
-  --disable CONFIG_STRICT_MODULE_RWX
+  --disable CONFIG_STRICT_MODULE_RWX \
+  --enable CONFIG_CRYPTO \
+  --enable CONFIG_CRYPTO_LIB_CURVE25519 \
+  --enable CONFIG_CRYPTO_LIB_CHAHA20POLY1305 \
+  --enable CONFIG_CRYPTO_LIB_BLAKE2S_GENERIC
 make olddefconfig
