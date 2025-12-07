@@ -51,8 +51,8 @@ cmd_launch() {
   echo "Launching VM: $overlay"
 
   exec qemu-system-x86_64 \
-    -m 4G \
-    -smp 2 \
+    -m 8G \
+    -smp 4 \
     -drive file="$overlay",if=ide,cache=unsafe \
     -net none \
     -vga std \
@@ -64,8 +64,8 @@ cmd_launch() {
     -enable-kvm 2>/dev/null || \
   exec qemu-system-x86_64 \
     -name "Malware-Sandbox" \
-    -m 4G \
-    -smp 2 \
+    -m 8G \
+    -smp 4 \
     -drive file="$overlay",if=ide,cache=unsafe \
     -net none \
     -vga std \
