@@ -29,6 +29,7 @@
           qemu = import ./qemu { inherit pkgs; };
           afl = import ./afl { inherit pkgs; };
           malanal = import ./malanal { inherit pkgs; };
+          latex = import ./latex.nix { inherit pkgs; };
         });
     };
 }
