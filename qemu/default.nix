@@ -6,6 +6,9 @@
   shellHook = ''
     NAME="qemu"
     ${builtins.readFile ../nix-develop-stack.sh}
-    qemu-system-x86_64 --version | head -1
+    echo "[Versions]"
+    echo "  $(qemu-system-x86_64 --version | head -1)"
+    echo "[Scripts]"
+    echo "  qemu-boot-iso: Start QEMU using provided ISO file"
   '';
 }
