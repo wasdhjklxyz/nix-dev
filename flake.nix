@@ -31,6 +31,7 @@
           malanal = import ./malanal { inherit pkgs; };
           latex = import ./latex.nix { inherit pkgs; };
           sops = import ./sops.nix { inherit pkgs; };
+          age = import ./age.nix { inherit pkgs; };
         });
     };
 }
