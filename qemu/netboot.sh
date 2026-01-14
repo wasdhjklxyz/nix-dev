@@ -11,11 +11,13 @@ case "$ARCH" in
     KERNEL="$RESULT/bzImage"
     QEMU_CMD="qemu-system-x86_64"
     QEMU_OPTS=(-enable-kvm)
+    CONSOLE="ttyS0"
     ;;
   aarch64)
-    KERNEL="$RESULT/Image"
+    KERNEL="$RESULT/bzImage"
     QEMU_CMD="qemu-system-aarch64"
     QEMU_OPTS=(-M virt -cpu cortex-a72)
+    CONSOLE="ttyAMA0"
     ;;
   *)
     echo "Unknown arch: $ARCH" >&2; exit 1
@@ -34,7 +36,7 @@ $QEMU_CMD \
   "${QEMU_OPTS[@]}" \
   -kernel "$KERNEL" \
   -initrd "$INITRD" \
-  -append "init=$INIT_PATH console=ttyS0 loglevel=4" \
+  -append "init=$INIT_PATH console=$CONSOLE loglevel=4" \
   -nic user,model=virtio-net-pci \
   -drive file="$DISK",if=virtio,format=qcow2 \
   -nographic 2>/dev/null || \
@@ -43,7 +45,7 @@ $QEMU_CMD \
   "${QEMU_OPTS[@]/#-enable-kvm/}" \
   -kernel "$KERNEL" \
   -initrd "$INITRD" \
-  -append "init=$INIT_PATH console=ttyS0 loglevel=4" \
+  -append "init=$INIT_PATH console=$CONSOLE loglevel=4" \
   -nic user,model=virtio-net-pci \
   -drive file="$DISK",if=virtio,format=qcow2 \
   -nographic
