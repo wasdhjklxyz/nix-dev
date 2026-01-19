@@ -32,6 +32,7 @@
           latex = import ./latex.nix { inherit pkgs; };
           sops = import ./sops.nix { inherit pkgs; };
           age = import ./age.nix { inherit pkgs; };
+          i686 = import ./i686.nix { inherit nixpkgs; };
         });
     };
 }
