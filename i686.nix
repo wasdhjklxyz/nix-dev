@@ -5,6 +5,7 @@ in i686pkgs.mkShell {
   buildInputs = with i686pkgs; [
     gcc
     glibc
+    gdb
   ];
   shellHook = ''
     NAME="i686"
