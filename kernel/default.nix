@@ -42,7 +42,17 @@ let
 in {
   packages = { inherit linux busybox initramfs; };
   devShell = pkgs.mkShell {
-    buildInputs = with pkgs; [ linux bear socat gdb ];
+    buildInputs = with pkgs; [
+      linux
+      bear
+      socat
+      gdb
+      (writeScriptBin "cleanup-qemu" "${builtins.readFile ./scripts/cleanup-qemu.sh}")
+      (writeScriptBin "debug-qemu" "${builtins.readFile ./scripts/debug-qemu.sh}")
+      (writeScriptBin "qemu-gdb" "${builtins.readFile ./scripts/qemu-gdb.sh}")
+      (writeScriptBin "qemu-tty" "${builtins.readFile ./scripts/qemu-tty.sh}")
+      (writeScriptBin "start-qemu" "${builtins.readFile ./scripts/start-qemu.sh}")
+    ];
     shellHook = ''
       NAME="kernel"
       ${builtins.readFile ../nix-develop-stack.sh}
@@ -53,8 +63,6 @@ in {
 
       INITRAMFS_SRC=${initramfs}
       ${builtins.readFile ./export-initramfs.sh}
-
-      ${builtins.readFile ./start-qemu.sh}
 
       BUSYBOX_SRC=${busybox}
       echo "[Versions]"
