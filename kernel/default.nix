@@ -1,12 +1,13 @@
 { pkgs, self, system }:
 let
   name = ''\033[33mkernel-dev\033[39m'';
+  version = "6.12.67";
   linux = pkgs.stdenv.mkDerivation {
     pname = "linux";
-    version = "6.12.49";
+    inherit version;
     src = pkgs.fetchurl {
-      url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.12.49.tar.xz";
-      hash = "sha256-I0Yh4UbazOIkEElVXVUOT3pr3mfM1+8jLUesgUVCVSY=";
+      url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${version}.tar.xz";
+      hash = "sha256-FoBdxi4fpe+KP0ZvP0Si77FxtSBtaEDO1LpUdc8SxDI=";
     };
     buildInputs = with pkgs; [
       flex
