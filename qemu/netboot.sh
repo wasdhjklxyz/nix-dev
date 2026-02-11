@@ -32,7 +32,7 @@ INIT_PATH=$(grep -oP 'init=\K[^ ]+' "$RESULT/kexec-boot")
 [[ -f "$DISK" ]] || { qemu-img create -f qcow2 "$DISK" 20G; }
 
 $QEMU_CMD \
-  -m 4G -smp 4 \
+  -m 8G -smp 6 \
   "${QEMU_OPTS[@]}" \
   -kernel "$KERNEL" \
   -initrd "$INITRD" \
@@ -41,7 +41,7 @@ $QEMU_CMD \
   -drive file="$DISK",if=virtio,format=qcow2 \
   -nographic 2>/dev/null || \
 $QEMU_CMD \
-  -m 4G -smp 4 \
+  -m 8G -smp 6 \
   "${QEMU_OPTS[@]/#-enable-kvm/}" \
   -kernel "$KERNEL" \
   -initrd "$INITRD" \
