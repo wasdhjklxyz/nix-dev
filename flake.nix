@@ -34,6 +34,7 @@
           age = import ./age.nix { inherit pkgs; };
           i686 = import ./i686.nix { inherit nixpkgs; };
           java = import ./java.nix { inherit pkgs; };
+          vnc = import ./vnc.nix { inherit pkgs; };
         });
     };
 }
