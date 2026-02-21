@@ -37,6 +37,7 @@
           java = import ./java.nix { inherit pkgs; };
           vnc = import ./vnc.nix { inherit pkgs; };
           qgc = import ./qgc.nix { inherit pkgs; };
+          recon = import ./recon.nix { inherit pkgs; };
         });
     };
 }
