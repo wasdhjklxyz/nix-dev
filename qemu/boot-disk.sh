@@ -3,23 +3,37 @@ set -euo pipefail
 
 ARCH="${ARCH:-x86_64}"
 GRAPHICS=false
+NET_MODE="nat"
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --graphics) GRAPHICS=true; shift ;;
+    --net=*) NET_MODE="${1#--net=}"; shift ;;
     -*) echo "Unknown option: $1" >&2; exit 1 ;;
     *) DISK="$1"; shift ;;
   esac
 done
 
-DISK="${DISK:?Usage: $0 [--graphics] <disk>}"
+DISK="${DISK:?Usage: $0 [--graphics] [--net=none|nat|hostonly|isolated] <disk>}"
 [[ -f "$DISK" ]] || { echo "Disk not found: $DISK" >&2; exit 1; }
+
+case "${DISK##*.}" in
+  vmdk|vdi|raw|vpc|vhdx)
+    QCOW2_DISK="${DISK%.*}.qcow2"
+    if [[ ! -f "$QCOW2_DISK" ]]; then
+      echo "Converting $DISK -> $QCOW2_DISK..."
+      qemu-img convert -O qcow2 "$DISK" "$QCOW2_DISK"
+    fi
+    DISK="$QCOW2_DISK"
+    ;;
+  qcow2) ;;
+  *) echo "Unknown disk format: ${DISK##*.}" >&2; exit 1 ;;
+esac
 
 case "$ARCH" in
   x86_64)
     QEMU_CMD="qemu-system-x86_64"
     QEMU_OPTS=(-enable-kvm)
-    $GRAPHICS && QEMU_OPTS+=(-vga virtio -display gtk)
     ;;
   aarch64)
     QEMU_CMD="qemu-system-aarch64"
@@ -37,18 +51,39 @@ else
   DISPLAY_OPTS+=(-nographic)
 fi
 
-case "${DISK##*.}" in
-  vmdk|vdi|raw|vpc|vhdx)
-    QCOW2_DISK="${DISK%.*}.qcow2"
-    if [[ ! -f "$QCOW2_DISK" ]]; then
-      echo "Converting $DISK -> $QCOW2_DISK..."
-      qemu-img convert -O qcow2 "$DISK" "$QCOW2_DISK"
-    fi
-    DISK="$QCOW2_DISK"
+BRIDGE_HELPER="/run/wrappers/bin/qemu-bridge-helper"
+NET_OPTS=()
+case "$NET_MODE" in
+  none)
+    NET_OPTS=(-nic none)
     ;;
-  qcow2) ;;
-  *) echo "Unknown disk format: ${DISK##*.}" >&2; exit 1 ;;
+  nat)
+    NET_OPTS=(-nic user,model=virtio-net-pci)
+    ;;
+  hostonly)
+    NET_OPTS=(
+      -netdev tap,id=net0,br=br-qemu-host,helper="$BRIDGE_HELPER"
+      -device e1000,netdev=net0
+    )
+    ;;
+  isolated)
+    NET_OPTS=(
+      -netdev tap,id=net0,br=br-qemu-iso,helper="$BRIDGE_HELPER"
+      -device e1000,netdev=net0
+    )
+    ;;
+  *)
+    echo "Unknown net mode: $NET_MODE"
+    echo "  none     - no network"
+    echo "  nat      - internet via host (default)"
+    echo "  hostonly  - host <-> VM only, no internet"
+    echo "  isolated  - host can reach VM, VM can't reach anything"
+    exit 1
+    ;;
 esac
+
+echo "[QEMU] arch=$ARCH net=$NET_MODE graphics=$GRAPHICS"
+echo "[QEMU] disk=$DISK"
 
 $QEMU_CMD \
   -m 4G \
@@ -56,7 +91,7 @@ $QEMU_CMD \
   -drive file="$DISK",if=none,id=disk0,format=qcow2 \
   -device ahci,id=ahci \
   -device ide-hd,drive=disk0,bus=ahci.0 \
-  -nic user,model=virtio-net-pci \
+  "${NET_OPTS[@]}" \
   "${DISPLAY_OPTS[@]}" \
   "${QEMU_OPTS[@]}" 2>/dev/null || \
 $QEMU_CMD \
@@ -65,6 +100,6 @@ $QEMU_CMD \
   -drive file="$DISK",if=none,id=disk0,format=qcow2 \
   -device ahci,id=ahci \
   -device ide-hd,drive=disk0,bus=ahci.0 \
-  -nic user,model=virtio-net-pci \
+  "${NET_OPTS[@]}" \
   "${DISPLAY_OPTS[@]}" \
   "${QEMU_OPTS[@]/#-enable-kvm/}"

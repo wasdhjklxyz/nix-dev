@@ -10,6 +10,7 @@
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
     in {
+      nixosModules.qemu-lab = import ./qemu/qemu-lab.nix;
       devShells = eachSystem (system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
