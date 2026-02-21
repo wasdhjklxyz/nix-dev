@@ -12,7 +12,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-DISK="${DISK:?Usage: $0 [--graphics] <disk.qcow2>}"
+DISK="${DISK:?Usage: $0 [--graphics] <disk>}"
 [[ -f "$DISK" ]] || { echo "Disk not found: $DISK" >&2; exit 1; }
 
 case "$ARCH" in
@@ -36,6 +36,19 @@ if $GRAPHICS; then
 else
   DISPLAY_OPTS+=(-nographic)
 fi
+
+case "${DISK##*.}" in
+  vmdk|vdi|raw|vpc|vhdx)
+    QCOW2_DISK="${DISK%.*}.qcow2"
+    if [[ ! -f "$QCOW2_DISK" ]]; then
+      echo "Converting $DISK -> $QCOW2_DISK..."
+      qemu-img convert -O qcow2 "$DISK" "$QCOW2_DISK"
+    fi
+    DISK="$QCOW2_DISK"
+    ;;
+  qcow2) ;;
+  *) echo "Unknown disk format: ${DISK##*.}" >&2; exit 1 ;;
+esac
 
 $QEMU_CMD \
   -m 4G \

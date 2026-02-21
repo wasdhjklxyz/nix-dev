@@ -13,6 +13,6 @@
     echo "[Scripts]"
     echo "  qemu-boot-iso: Start QEMU using provided ISO file"
     echo "  qemu-netboot: Start QEMU using provided netboot toplevel"
-    echo "  qemu-boot-disk: Start QEMU using provided disk file (qcow2)"
+    echo "  qemu-boot-disk: Start QEMU using provided disk file"
   '';
 }
