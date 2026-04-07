@@ -16,6 +16,9 @@
     enum4linux
     smbmap
     hydra
+    thc-hydra
+    seclists
+    john
   ];
 
   shellHook = ''
