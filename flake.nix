@@ -40,6 +40,7 @@
           recon = import ./recon.nix { inherit pkgs; };
           mosquitto = import ./mosquitto.nix { inherit pkgs; };
           bear = import ./bear.nix { inherit pkgs; };
+          mission-planner = import ./mission-planner.nix { inherit pkgs; };
         });
     };
 }
