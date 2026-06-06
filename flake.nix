@@ -42,6 +42,7 @@
           bear = import ./bear.nix { inherit pkgs; };
           mission-planner = import ./mission-planner.nix { inherit pkgs; };
           pixiecore = import ./pixiecore.nix { inherit pkgs; };
+          rust = import ./rust.nix { inherit pkgs; };
         });
     };
 }
