@@ -4,16 +4,23 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     systems.url = "github:nix-systems/default";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, systems }:
+  outputs = { self, nixpkgs, systems, rust-overlay }:
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
     in {
       nixosModules.qemu-lab = import ./qemu/qemu-lab.nix;
       devShells = eachSystem (system:
         let
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [ rust-overlay.overlays.default ];
+          };
           kernelStuff = import ./kernel { inherit pkgs self system; };
         in {
           go = import ./go.nix { inherit pkgs; };
