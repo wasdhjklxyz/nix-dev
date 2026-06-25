@@ -50,6 +50,7 @@
           mission-planner = import ./mission-planner.nix { inherit pkgs; };
           pixiecore = import ./pixiecore.nix { inherit pkgs; };
           rust = import ./rust.nix { inherit pkgs; };
+          lua = import ./lua.nix { inherit pkgs; };
         });
     };
 }
