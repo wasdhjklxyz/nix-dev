@@ -1,4 +1,8 @@
-{ pkgs, self, system }:
+{
+  pkgs,
+  self,
+  system,
+}:
 let
   name = ''\033[33mkernel-dev\033[39m'';
   version = "6.12.67";
@@ -12,7 +16,7 @@ let
     buildInputs = with pkgs; [
       flex
       bison
-      bash  # Needed by patchShebangs
+      bash # Needed by patchShebangs
       bc
       elfutils
     ];
@@ -30,7 +34,7 @@ let
   };
   initramfs = pkgs.stdenv.mkDerivation {
     pname = "initramfs";
-    version = "0.0";  # TODO: Automatic versioning?
+    version = "0.0"; # TODO: Automatic versioning?
     dontUnpack = true;
     buildInputs = [ busybox ];
     buildPhase = ''
@@ -39,7 +43,8 @@ let
     '';
     installPhase = builtins.readFile ./initramfs-install.sh;
   };
-in {
+in
+{
   packages = { inherit linux busybox initramfs; };
   devShell = pkgs.mkShell {
     buildInputs = with pkgs; [

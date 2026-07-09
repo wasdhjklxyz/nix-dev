@@ -1,4 +1,5 @@
-{ pkgs }: pkgs.mkShell {
+{ pkgs }:
+pkgs.mkShell {
   buildInputs = with pkgs; [
     nmap
     masscan
@@ -9,10 +10,10 @@
     ffuf
     curl
     wget
-    dnsutils  # dig nslookup
+    dnsutils # dig nslookup
     whois
     metasploit
-    exploitdb  # searchsploit
+    exploitdb # searchsploit
     enum4linux
     smbmap
     hydra

@@ -1,5 +1,9 @@
-{ pkgs }: pkgs.mkShell {
-  buildInputs = with pkgs; [ cmake pkg-config ];
+{ pkgs }:
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    cmake
+    pkg-config
+  ];
   shellHook = ''
     NAME="cmake"
     ${builtins.readFile ./nix-develop-stack.sh}

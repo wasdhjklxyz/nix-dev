@@ -1,8 +1,16 @@
 { pkgs }:
 let
   cli = pkgs.writeShellScriptBin "malanal" (builtins.readFile ./cli.sh);
-in pkgs.mkShell {
-  buildInputs = with pkgs; [ qemu_kvm qemu-utils wireshark ] ++ [ cli ];
+in
+pkgs.mkShell {
+  buildInputs =
+    with pkgs;
+    [
+      qemu_kvm
+      qemu-utils
+      wireshark
+    ]
+    ++ [ cli ];
   shellHook = ''
     NAME="malanal"
     ${builtins.readFile ../nix-develop-stack.sh}

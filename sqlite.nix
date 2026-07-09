@@ -1,4 +1,5 @@
-{ pkgs }: pkgs.mkShell {
+{ pkgs }:
+pkgs.mkShell {
   buildInputs = with pkgs; [ sqlite ];
   shellHook = ''
     NAME="sqlite"

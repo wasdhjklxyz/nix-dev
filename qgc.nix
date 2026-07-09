@@ -1,4 +1,5 @@
-{ pkgs }: pkgs.mkShell {
+{ pkgs }:
+pkgs.mkShell {
   buildInputs = with pkgs; [ qgroundcontrol ];
   shellHook = ''
     NAME="qgroundcontrol"

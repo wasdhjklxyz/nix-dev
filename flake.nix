@@ -10,19 +10,28 @@
     };
   };
 
-  outputs = { self, nixpkgs, systems, rust-overlay }:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      systems,
+      rust-overlay,
+    }:
     let
       eachSystem = nixpkgs.lib.genAttrs (import systems);
-    in {
+    in
+    {
       nixosModules.qemu-lab = import ./qemu/qemu-lab.nix;
-      devShells = eachSystem (system:
+      devShells = eachSystem (
+        system:
         let
           pkgs = import nixpkgs {
             inherit system;
             overlays = [ rust-overlay.overlays.default ];
           };
           kernelStuff = import ./kernel { inherit pkgs self system; };
-        in {
+        in
+        {
           go = import ./go.nix { inherit pkgs; };
           cancer = import ./cancer.nix { inherit pkgs; };
           sqlite = import ./sqlite.nix { inherit pkgs; };
@@ -51,6 +60,7 @@
           pixiecore = import ./pixiecore.nix { inherit pkgs; };
           rust = import ./rust.nix { inherit pkgs; };
           lua = import ./lua.nix { inherit pkgs; };
-        });
+        }
+      );
     };
 }

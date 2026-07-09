@@ -1,5 +1,11 @@
-{ pkgs }: pkgs.mkShell {
-  buildInputs = with pkgs; [ python314 uv basedpyright ruff ];
+{ pkgs }:
+pkgs.mkShell {
+  buildInputs = with pkgs; [
+    python314
+    uv
+    basedpyright
+    ruff
+  ];
   shellHook = ''
     NAME="python"
     ${builtins.readFile ./nix-develop-stack.sh}

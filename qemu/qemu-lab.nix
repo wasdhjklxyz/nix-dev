@@ -1,7 +1,13 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.virtualisation.qemu-lab;
-in {
+in
+{
   options.virtualisation.qemu-lab = {
     enable = lib.mkEnableOption "QEMU lab networking";
 
@@ -34,25 +40,29 @@ in {
     dns = {
       upstreamServers = lib.mkOption {
         type = lib.types.listOf lib.types.str;
-        default = [];
+        default = [ ];
         description = "Upstream DNS servers for dnsmasq. Empty = don't override system DNS.";
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    networking.bridges.${cfg.isolated.bridge}.interfaces = [];
-    networking.bridges.${cfg.hostonly.bridge}.interfaces = [];
+    networking.bridges.${cfg.isolated.bridge}.interfaces = [ ];
+    networking.bridges.${cfg.hostonly.bridge}.interfaces = [ ];
 
-    networking.interfaces.${cfg.isolated.bridge}.ipv4.addresses = [{
-      address = "${cfg.isolated.subnet}.1";
-      prefixLength = 24;
-    }];
+    networking.interfaces.${cfg.isolated.bridge}.ipv4.addresses = [
+      {
+        address = "${cfg.isolated.subnet}.1";
+        prefixLength = 24;
+      }
+    ];
 
-    networking.interfaces.${cfg.hostonly.bridge}.ipv4.addresses = [{
-      address = "${cfg.hostonly.subnet}.1";
-      prefixLength = 24;
-    }];
+    networking.interfaces.${cfg.hostonly.bridge}.ipv4.addresses = [
+      {
+        address = "${cfg.hostonly.subnet}.1";
+        prefixLength = 24;
+      }
+    ];
 
     services.dnsmasq = {
       enable = true;
@@ -63,19 +73,25 @@ in {
           "${cfg.isolated.subnet}.1"
           "${cfg.hostonly.subnet}.1"
         ];
-        interface = [ cfg.isolated.bridge cfg.hostonly.bridge ];
+        interface = [
+          cfg.isolated.bridge
+          cfg.hostonly.bridge
+        ];
         dhcp-range = [
           "interface:${cfg.isolated.bridge},${cfg.isolated.subnet}.100,${cfg.isolated.subnet}.200,12h"
           "interface:${cfg.hostonly.bridge},${cfg.hostonly.subnet}.100,${cfg.hostonly.subnet}.200,12h"
         ];
         no-resolv = true;
         no-poll = true;
-        server = lib.mkIf (cfg.dns.upstreamServers != []) cfg.dns.upstreamServers;
+        server = lib.mkIf (cfg.dns.upstreamServers != [ ]) cfg.dns.upstreamServers;
       };
     };
 
     networking.firewall = {
-      trustedInterfaces = [ cfg.isolated.bridge cfg.hostonly.bridge ];
+      trustedInterfaces = [
+        cfg.isolated.bridge
+        cfg.hostonly.bridge
+      ];
       extraCommands = ''
         # NOTE: Isolated - drop all forwarding (no internet, no LAN)
         iptables -I FORWARD -i ${cfg.isolated.bridge} -j DROP

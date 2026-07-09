@@ -1,4 +1,5 @@
-{ pkgs }: pkgs.mkShell {
+{ pkgs }:
+pkgs.mkShell {
   buildInputs = with pkgs; [
     jdk25
     jdt-language-server
