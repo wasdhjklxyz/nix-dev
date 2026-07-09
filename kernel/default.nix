@@ -4,7 +4,6 @@
   system,
 }:
 let
-  name = ''\033[33mkernel-dev\033[39m'';
   version = "6.12.67";
   linux = pkgs.stdenv.mkDerivation {
     pname = "linux";
@@ -59,7 +58,7 @@ in
       (writeScriptBin "start-qemu" "${builtins.readFile ./scripts/start-qemu.sh}")
     ];
     shellHook = ''
-      NAME="kernel"
+      NAME="linux-${version}"
       ${builtins.readFile ../nix-develop-stack.sh}
 
       LINUX_SRC=${linux}
