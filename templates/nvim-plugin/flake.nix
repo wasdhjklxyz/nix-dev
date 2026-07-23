@@ -26,7 +26,7 @@
             ];
             runtimeEnv = {
               NVIM_DEV_BIN = "${pkgs.neovim}/bin/nvim";
-              NVIM_DEV_CFG = ./dev/repro.lua;
+              NVIM_DEV_CFG = ./repro.lua;
             };
             text = ''
               root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
