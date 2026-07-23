@@ -1,0 +1,5 @@
+.nvim-dev/
+result
+result-*
+.direnv/
+doc/tags

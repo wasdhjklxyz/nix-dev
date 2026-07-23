@@ -62,5 +62,12 @@
           lua = import ./lua.nix { inherit pkgs; };
         }
       );
+
+      templates = {
+        nvim-plugin = {
+          path = ./templates/nvim-plugin;
+          description = "Neovim plugin dev shell";
+        };
+      };
     };
 }
